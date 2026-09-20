@@ -1,4 +1,4 @@
-# 🤖💬 My Language Models from Scratch
+# 🤖💬 Original LLM
 
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1-red.svg)
@@ -11,14 +11,14 @@
 </p>
 
 ## 📝 Project Description
-Welcome to **GPT from Scratch** 🤖💬 !
+Welcome to **Original LLM** 🤖💬 !
 The goal of this project is to **implement a Transformer model step by step**, inspired by the architecture behind **GPT (Generative Pre-trained Transformer)**.
 
 This repository shows how to go from **a simple Bigram model** ➡️ to **a multi-layer Transformer** capable of generating text in French 🇫🇷 and English 🇬🇧 for example.
 
 This repo is the first of a series 📚
 
-  🧬 [modern-transformer](https://github.com/Thibault-GAREL/LLMs_modern_from_scratch) rebuilds everything the open-weights models changed after 2017 (RoPE, GQA, MoE, RMSNorm), each deviation behind its own config flag so they can be compared one at a time.
+  🧬 [Modern LLM](https://github.com/Thibault-GAREL/LLMs_modern_from_scratch) rebuilds everything the open-weights models changed after 2017 (RoPE, GQA, MoE, RMSNorm), each deviation behind its own config flag so they can be compared one at a time.
 
   🔁 [llm-harness](https://github.com/Thibault-GAREL/LLM_harness) documents the **harness**, the program wrapped around a trained model. A model like the one here only predicts the next token, it cannot open a file, run a command, or remember what it did. The harness is the loop that hands it tools, feeds the results back as new tokens, and decides what still fits in the context window. **That loop is the entire difference between a text generator and an agent.**
 
@@ -432,6 +432,6 @@ For the illustration:
 - A video from 3Blue1Brown : [Attention in transformers](https://www.youtube.com/watch?v=eMlx5fFNoYc)
 - A video from bycloud : [Attention Sink: The Fluke That Made LLMs Actually Usable](https://www.youtube.com/watch?v=Y8Tj9kq4iWY)
 
-Related work of mine: [modern-transformer](https://github.com/Thibault-GAREL/LLMs_modern_from_scratch) for everything the architecture gained after 2017, and [llm-harness](https://github.com/Thibault-GAREL/LLM_harness) for the agent loop that runs a trained model once it exists.
+Related work of mine: [Modern LLM](https://github.com/Thibault-GAREL/LLMs_modern_from_scratch) for everything the architecture gained after 2017, and [llm-harness](https://github.com/Thibault-GAREL/LLM_harness) for the agent loop that runs a trained model once it exists.
 
 Code created by me 😎, Thibault GAREL - [Github](https://github.com/Thibault-GAREL)
