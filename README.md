@@ -7,7 +7,7 @@
 ![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
 <p align="center">
-  <img src="img/Titre-GPT_from_scratch.png" alt="Titre-GPT_from_scratch" width="50%">
+  <img src="img/Titre-GPT_from_scratch.png" alt="Original LLM" width="50%">
 </p>
 
 ## 📝 Project Description
