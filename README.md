@@ -20,7 +20,11 @@ This repo is the first of a series 📚
 
   🧬 [Modern LLM](https://github.com/Thibault-GAREL/LLMs_modern_from_scratch) rebuilds everything the open-weights models changed after 2017 (RoPE, GQA, MoE, RMSNorm), each deviation behind its own config flag so they can be compared one at a time.
 
+Two learning notes go with it, documentation repos with no shipped code yet:
+
   🔁 [llm-harness](https://github.com/Thibault-GAREL/LLM_harness) documents the **harness**, the program wrapped around a trained model. A model like the one here only predicts the next token, it cannot open a file, run a command, or remember what it did. The harness is the loop that hands it tools, feeds the results back as new tokens, and decides what still fits in the context window. **That loop is the entire difference between a text generator and an agent.**
+
+  🌊 [Transformer Alternatives](https://github.com/Thibault-GAREL/Transformer_alternative) documents what tries to **replace** attention once the KV cache stops fitting (state space models, linear attention, modern RNNs and hybrids).
 
 ---
 
@@ -432,6 +436,10 @@ For the illustration:
 - A video from 3Blue1Brown : [Attention in transformers](https://www.youtube.com/watch?v=eMlx5fFNoYc)
 - A video from bycloud : [Attention Sink: The Fluke That Made LLMs Actually Usable](https://www.youtube.com/watch?v=Y8Tj9kq4iWY)
 
-Related work of mine: [Modern LLM](https://github.com/Thibault-GAREL/LLMs_modern_from_scratch) for everything the architecture gained after 2017, and [llm-harness](https://github.com/Thibault-GAREL/LLM_harness) for the agent loop that runs a trained model once it exists.
+Related work of mine:
+
+- 🧬 [Modern LLM](https://github.com/Thibault-GAREL/LLMs_modern_from_scratch), everything the architecture gained after 2017 (the next step after this repo)
+- 🔁 [llm-harness](https://github.com/Thibault-GAREL/LLM_harness) (learning notes), the agent loop that runs a trained model once it exists
+- 🌊 [Transformer Alternatives](https://github.com/Thibault-GAREL/Transformer_alternative) (learning notes), what tries to replace attention once the KV cache stops fitting
 
 Code created by me 😎, Thibault GAREL - [Github](https://github.com/Thibault-GAREL)
