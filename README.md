@@ -32,31 +32,31 @@ Two learning notes go with it, documentation repos with no shipped code yet:
 
 This repository contains two different implementations of language models: a **simple Bigram model** and a **full Transformer model**.
 
-### 🔹 Simple Bigram Model
+### Simple Bigram Model
 → super simple, fast, but no context awareness
 
-- 🏗️ **Architecture**: Basic bigram model using only an embedding table (`token → vocab_size`)
-- 🎯 **Prediction**: Each token directly predicts the next one via a lookup table
-- 📚 **Dataset**: *Harry Potter* text, character-level encoding
-- ⚙️ **Training**: 10,000 steps with AdamW optimizer (`lr=1e-3`)
+- **Architecture**: Basic bigram model using only an embedding table (`token → vocab_size`)
+- **Prediction**: Each token directly predicts the next one via a lookup table
+- **Dataset**: *Harry Potter* text, character-level encoding
+- **Training**: 10,000 steps with AdamW optimizer (`lr=1e-3`)
 - ⚠️ **Limitation**: No context (each prediction is independent from the previous ones)
-- ✨ **Generation**: Multinomial sampling over softmax probabilities
+- **Generation**: Multinomial sampling over softmax probabilities
 
 
-### 🔹 Transformer Model
+### Transformer Model
 → powerful, context-aware, more expensive to train
 
-- 🏗️ **Architecture**: Transformer with multi-head attention + feed-forward networks
-- 🔑 **Self-Attention**: Key-Query-Value mechanism with causal masking
-- 🧠 **Multi-Head Attention**: 6 parallel heads (`n_head=6`)
-- 📏 **Positional Encoding**: Position embeddings to capture sequential order
-- 🧩 **Transformer Blocks**: 6 layers (`n_layer=6`) with residual connections
-- 🧽 **Normalization**: LayerNorm before each sub-layer
-- 🛡️ **Regularization**: Dropout (`0.2`) to reduce overfitting
-- 📏 **Extended Context**: Block size of `256` tokens vs. `8` in bigram
-- 📚 **Dataset**: Texts of *Victor Hugo*
-- ⚡ **Optimizations**: GPU/CUDA support, periodic train/val loss evaluation
-- 🤖 **Generation**: Context-aware text generation
+- **Architecture**: Transformer with multi-head attention + feed-forward networks
+- **Self-Attention**: Key-Query-Value mechanism with causal masking
+- **Multi-Head Attention**: 6 parallel heads (`n_head=6`)
+- **Positional Encoding**: Position embeddings to capture sequential order
+- **Transformer Blocks**: 6 layers (`n_layer=6`) with residual connections
+- **Normalization**: LayerNorm before each sub-layer
+- **Regularization**: Dropout (`0.2`) to reduce overfitting
+- **Extended Context**: Block size of `256` tokens vs. `8` in bigram
+- **Dataset**: Texts of *Victor Hugo*
+- **Optimizations**: GPU/CUDA support, periodic train/val loss evaluation
+- **Generation**: Context-aware text generation
 
 ---
 
@@ -73,19 +73,16 @@ With only 5,000 iterations (~4h GPU 💻🔥), the model starts producing French
 
 ---
 
-## ⚙️ How it works
-- 📖 Read a text dataset (Victor Hugo or Harry Potter, multilingual)
-- 🔢 Create a mapping between **characters ↔ integers**
-- 🧩 Build **encoders/decoders** to switch between text and numbers
-- ✂️ Split the dataset into **training (90%)** and **validation (10%)**
-- 📦 Process text into **blocks** (context windows) and **batches**
-- 🏗️ Implement a **Bigram Language Model**
-- 🚀 Train the model using **PyTorch** (`AdamW` optimizer)
-- ✨ Generate new text sequences and have fun 😆 !!!
+## 🗺️ How it works
 
----
-
-## 🗺️ Schema
+- Read a text dataset (Victor Hugo or Harry Potter, multilingual)
+- Create a mapping between **characters ↔ integers**
+- Build **encoders/decoders** to switch between text and numbers
+- Split the dataset into **training (90%)** and **validation (10%)**
+- Process text into **blocks** (context windows) and **batches**
+- Implement a **Bigram Language Model**
+- Train the model using **PyTorch** (`AdamW` optimizer)
+- Generate new text sequences and have fun !!!
 
 This part walks through the Transformer block by block. The same content, in slide form, is in [`Formation Architecture Transformer - ILab.pdf`](Formation%20Architecture%20Transformer%20-%20ILab.pdf), the deck I wrote to present the architecture.
 
@@ -318,7 +315,7 @@ Then Add & Norm is here so as not to "forget" the initial prompt:
 - Add : We add the embedding found after the multi-head attention and the initial input
 - Norm : Then, we normalize the layer. It centers and resizes the values to stabilize and accelerate convergence.
 
-The normalization used in every Transformer is **LayerNorm**, not BatchNorm. In both cases the operation is the same: **center the data to mean = 0 and rescale it to std = 1**, like a standard normal distribution N(0, 1) 📊. The only difference is **which axis you average over**:
+The normalization used in every Transformer is **LayerNorm**, not BatchNorm. In both cases the operation is the same: **center the data to mean = 0 and rescale it to std = 1**, like a standard normal distribution N(0, 1). The only difference is **which axis you average over**:
 - **BatchNorm** → `axis=0` → mean of **each dimension** (across the batch). Each feature is centered to 0 and rescaled to std=1 across all tokens of the batch → depends on the batch size and on the other tokens
 - **LayerNorm** → `axis=1` → mean of the **point itself** (across its features). Each token is centered to 0 and rescaled to std=1 independently → fully independent of the batch (even works at inference with `batch_size=1`)
 
@@ -342,9 +339,9 @@ Here is a 3D visualization (d = 3, so the sphere of radius √3 intersected with
 The **green point** shows the same token before and after LayerNorm. Its position is completely re-mapped, but its **direction is preserved**.
 
 **Doesn't this destroy the token's identity?** Not really :
-- 🎯 The semantic content of a token is encoded in its **direction**, not its norm. Attention computes Q · K<sup>T</sup>, which is essentially a cosine similarity → it only "sees" directions.
-- 📐 LayerNorm always removes exactly **2 degrees of freedom** (the mean + the scale). In 3D this is brutal (3 → 1, a circle). But in 512D (BERT) it leaves 510D, so **99.6 %** of the directional information is preserved.
-- 🎚️ The learnable **γ** and **β** can re-stretch and shift each dimension after normalization, giving the network all the elasticity it needs.
+- The semantic content of a token is encoded in its **direction**, not its norm. Attention computes Q · K<sup>T</sup>, which is essentially a cosine similarity → it only "sees" directions.
+- LayerNorm always removes exactly **2 degrees of freedom** (the mean + the scale). In 3D this is brutal (3 → 1, a circle). But in 512D (BERT) it leaves 510D, so **99.6 %** of the directional information is preserved.
+- The learnable **γ** and **β** can re-stretch and shift each dimension after normalization, giving the network all the elasticity it needs.
 
 ### 🧾 Brief summary
 
@@ -361,7 +358,6 @@ The **green point** shows the same token before and after LayerNorm. Its positio
 > So the full architecture is trained to take previous tokens, determine the links between every token, scratch and deform the representation, to arrive at the next token's embedding.
 
 ---
-
 
 ## 📂 Repository structure
 ```bash
