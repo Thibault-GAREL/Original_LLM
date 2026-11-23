@@ -343,6 +343,24 @@ The **green point** shows the same token before and after LayerNorm. Its positio
 - LayerNorm always removes exactly **2 degrees of freedom** (the mean + the scale). In 3D this is brutal (3 → 1, a circle). But in 512D (BERT) it leaves 510D, so **99.6 %** of the directional information is preserved.
 - The learnable **γ** and **β** can re-stretch and shift each dimension after normalization, giving the network all the elasticity it needs.
 
+### **Reading the arrows (cross & self attention)**:
+
+<p align="center">
+  <img src="img/6-cross-attention.png" alt="Cross-attention flow" width="50%">
+</p>
+
+**Cross-attention** : the keys (K) and values (V) come from the encoder output while the queries (Q) come from the decoder, so each generated token can look at the whole input sentence (this is how a translation model reads the source text).
+
+<p align="center">
+  <img src="img/7-self-attention.png" alt="Self-attention flow" width="50%">
+</p>
+
+**Self-attention** : Q, K and V all come from the same sequence, so each token looks at the other tokens of its own sentence (in the encoder, and in the masked attention of the decoder).
+
+**Causal attention** is the masked self-attention of the decoder, where each token can only look at itself and the tokens before it (never the future), and it is the only attention used by GPT and by `Transformer.py`.
+
+Today, frontier LLMs are **decoder-only** models, so they drop the encoder and the cross-attention and keep only this causal self-attention.
+
 ### 🧾 Brief summary
 
 > So, for me :
